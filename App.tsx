@@ -1,6 +1,6 @@
 import { use, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, TextInput, View,ScrollView, FlatList} from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View,ScrollView, FlatList, Touchable, TouchableOpacity, Pressable} from 'react-native';
 
 interface ITodo{
   id: number,
@@ -13,10 +13,17 @@ function randNumber(min:number,max:number){
   return Math.floor(Math.random()*(max-min+1))+min
 }
 const handleAddTodo = () => {
-  if(!todo) return;
+  if(!todo) {
+    alert("Todo đang để trống, vui lòng điền todo")
+    return;
+  }
   setListTodo([...listTodo, { id: randNumber(2, 200000), name: todo }]);
   setTodo(""); // reset lại input
-};
+}
+const deleteTodo = (id:number)=>{
+  const newTodo = listTodo.filter(item => item.id !== id)
+  setListTodo(newTodo)
+}
   return (
     <View style={styles.container}>
       {/* header */}
@@ -38,10 +45,16 @@ const handleAddTodo = () => {
       {/* list todo */}
       <View style={styles.body}>
         <FlatList
+        keyExtractor={item=>item.id + ""}
         data={listTodo}
         renderItem={({item})=>{
           return(
-            <Text style={styles.todoItem}>{item.name}</Text>
+            <Pressable
+            style={({pressed})=>({opacity: pressed ? 0.5 : 1})}
+            onPress={()=>deleteTodo(item.id)}>
+              <Text style={styles.todoItem}>{item.name}</Text>
+            </Pressable>
+
           )
         }}
         />
