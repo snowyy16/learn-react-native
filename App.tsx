@@ -1,38 +1,38 @@
 import { use, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, TextInput, View} from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View,ScrollView} from 'react-native';
 
 export default function App() {
 
-  const [number,setNumber] = useState(0)
-  const [name,setName]=useState("")
-  const [age,setAge]=useState(0)
-
+  const [students,setStudents] = useState([
+    {id:1,name:"snow1",age:18},
+    {id:2,name:"snowy2",age:19},
+    {id:3,name:"swon3",age:20},
+    {id:4,name:"hugo4",age:21},
+    {id:5,name:"sonw5",age:22},
+    {id:6,name:"snowy6",age:23},
+    {id:7,name:"snow7",age:24},
+    {id:8,name:"snow8",age:25},
+    {id:9,name:"snow9",age:25},
+    {id:10,name:"snow10",age:25},
+  ])
+  
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.name1}>Name: {name}</Text>
-        <TextInput 
-        multiline
-        onChangeText={(value)=>{setName(value)}}
-        style={styles.border1}
-        />
-       
-        <Text style={styles.age1}>Age: {age}</Text>
-        <TextInput
-        style={styles.border1}
-        onChangeText={(value)=>setAge(+value)}
-        keyboardType='numeric'
-        maxLength={2}
-        />
-        <Text style={styles.count1}>
-          count = {number}
-        </Text>
-         <View>
-          <Button color={"red"} 
-          title='increase' onPress={()=>setNumber(number+1)}/>
-        </View>
-      </View>
+      <Text style={{fontSize:60}}>
+        Hello world
+      </Text>
+      <ScrollView >
+          {students.map(item=>{
+            return(
+              <View key={item.id} style={styles.name1}>
+                <Text >
+                  {item.name}
+                </Text>
+              </View>
+            )
+          })}
+        </ScrollView>
     </View>
   );
 }
@@ -40,33 +40,19 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop:50,
+    paddingHorizontal:20,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap:10
-  },
-  count1:{
-    color: 'blue',
-    fontSize:40,
-    borderColor:'green',
-    fontWeight:600,
-    gap:10
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    
   },
   name1:{
-    color:"red",
-    fontSize:40,
-    fontWeight:300
-  },
-  border1:{
-    borderColor:"blue",
-    borderWidth:1,
-    width:200,
-    padding:15
-  },
-  age1:{
-   color:"red",
-    fontSize:40,
-    fontWeight:300
+      padding:30,
+      backgroundColor:"pink",
+      marginBottom:30
+
   }
+  
   
 });
