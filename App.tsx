@@ -1,6 +1,6 @@
 import { use, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, TextInput, View,ScrollView, FlatList, Touchable, TouchableOpacity, Pressable} from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View,ScrollView, FlatList, Touchable, TouchableOpacity, Pressable, Alert, TouchableWithoutFeedback, Keyboard} from 'react-native';
 
 interface ITodo{
   id: number,
@@ -14,7 +14,17 @@ function randNumber(min:number,max:number){
 }
 const handleAddTodo = () => {
   if(!todo) {
-    alert("Todo đang để trống, vui lòng điền todo")
+    Alert.alert("Lỗi input todo","Todo không được để trống",[
+      // {
+      //   text :"Hủy",
+      //   onPress: () => console.log("Cancel pressed"),
+      //   style: "cancel"
+      // },
+      {
+        text: "Xác nhận",
+        onPress: () => console.log("Ok pressed"),
+      },
+    ])
     return;
   }
   setListTodo([...listTodo, { id: randNumber(2, 200000), name: todo }]);
@@ -25,6 +35,7 @@ const deleteTodo = (id:number)=>{
   setListTodo(newTodo)
 }
   return (
+    <TouchableWithoutFeedback onPress={()=> Keyboard.dismiss()}>
     <View style={styles.container}>
       {/* header */}
       <Text style={styles.header}>
@@ -60,6 +71,7 @@ const deleteTodo = (id:number)=>{
         />
       </View>
     </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -94,6 +106,6 @@ const styles = StyleSheet.create({
     textAlign:"center",
     borderWidth:1,
     padding:10,
-    marginBottom:15
+    marginBottom:15,
   }
 });
