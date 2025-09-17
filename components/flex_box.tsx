@@ -19,8 +19,6 @@ const style = StyleSheet.create({
         borderWidth:1,
         borderColor:"red",
         //justify: ox (row) // oy (column)
-        justifyContent:"center",
-        alignItems:"center",
         flex:1
         
     },
