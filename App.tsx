@@ -30,17 +30,17 @@ const App = () => {
   if (!loaded && !error) {
     return null;
   }
-  const Stack = createNativeStackNavigator();
+  const Stack = createNativeStackNavigator<RootStackParamList>();
     return (
           <NavigationContainer>
             <Stack.Navigator>
               <Stack.Screen 
-              name="Home" 
+              name="home" 
               component={HomeScreen}
               options={{ title: 'Overview' }}
               />
               <Stack.Screen 
-              name = "Details" 
+              name = "review-detail" 
               component={DetailScreen}
               
               />
