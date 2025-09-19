@@ -2,18 +2,14 @@ import { StyleSheet, Text, View } from "react-native"
 import HomeScreen from "./components/reviews/home"
 import DetailScreen from "./components/reviews/detail"
 import AboutScreen from "./components/reviews/about"
-
 // Rest of the import statements
-
 // Rest of the import statements
-
 import { useFonts } from 'expo-font';
-
-
 import * as SplashScreen from 'expo-splash-screen';
-
 import {useEffect} from 'react';
 import { OPENSANS_REGULAR } from "./utils/const";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
 SplashScreen.preventAutoHideAsync();
@@ -34,12 +30,22 @@ const App = () => {
   if (!loaded && !error) {
     return null;
   }
+  const Stack = createNativeStackNavigator();
     return (
-        <View style={style.container}>
-            <HomeScreen/>
-            <DetailScreen/>
-            <AboutScreen/>
-        </View>
+          <NavigationContainer>
+            <Stack.Navigator>
+              <Stack.Screen 
+              name="Home" 
+              component={HomeScreen}
+              options={{ title: 'Overview' }}
+              />
+              <Stack.Screen 
+              name = "Details" 
+              component={DetailScreen}
+              
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
     )
 }
 const style = StyleSheet.create({
